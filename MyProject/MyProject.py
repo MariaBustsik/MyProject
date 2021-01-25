@@ -41,34 +41,16 @@ def user_not_found():
 
 
 
-def Generator():
-    global screen6
-    screen6=Toplevel(screen)
-    screen6.title("Генератор пароля 2.0")
-    screen6.geometry("500x100")
-    Label(screen6, text = "Скопируйте полученный пароль:" , font ='arial 15 bold').pack()
-    
- 
-    pass_len = IntVar()
-    length = Spinbox(screen6, from_ = 8, to_ = 32 , textvariable = pass_len , width = 15).pack()
-    pass_str = StringVar()
-    password = ''
 
-    for x in range (0,4):
-        password = random.choice(string.ascii_uppercase) + random.choice(string.ascii_lowercase) + random.choice(string.digits) + random.choice(string.punctuation)
-    for y in range(pass_len.get()- 4):
-        password = password + random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits + string.punctuation)
-    pass_str.set(password)
-    Entry(screen6 , textvariable = pass_str).pack()    
-  
+    
  
 
 def register_user():
-    if not username.get() or not password.get():
+    if not username.get() or not screen1.pass_str.get():
         Label(screen1, text="Заполните необходимые поля!", fg="green",font=("calibri",11)).pack()
     else:
         username_info=username.get()
-        password_info=password.get()
+        password_info=screen1.pass_str.get()
 
         file=open(username_info,"w")
         file.write(username_info+"\n")
@@ -106,12 +88,13 @@ def register():
     screen1=Toplevel(screen)
     screen1.title("Регистрация")
     screen1.geometry("300x250")
-
+    
     global username
     global password
     global username_entry
     global password_entry
-
+    
+    screen1.pass_str = StringVar()
     username=StringVar()
     password=StringVar()
 
@@ -123,14 +106,29 @@ def register():
     username_entry=Entry(screen1, textvariable=username)
     username_entry.pack()
     Label(screen1, text= "Пароль *").pack()
-    password_entry=Entry(screen1, textvariable=password)
+    password_entry=Entry(screen1, textvariable=screen1.pass_str)
     password_entry.pack()
     Label(screen1, text= "").pack()
-    Button(screen1,text="Создать пароль автоматически", width=25, height=1, command=Generator).pack()
+    Button(screen1,text="Создать пароль автоматически", width=25, height=1, command=generator).pack()
     Label(screen1, text= "").pack()
     Button(screen1,text="Зарегистрироваться", width=25, height=1, command=register_user).pack()
     
+def generator():
     
+    password = ''
+    str0 = ".,:;!_*-+()/#¤%&"
+    str1 = '0123456789'
+    str2 = 'qwertyuiopasdfghjklzxcvbnm'
+    str3 = str2.upper()
+    str4 = str0+str1+str2+str3
+    ls = list(str4)
+    random.shuffle(ls)
+    # Извлекаем из списка 12 произвольных значений
+    password = ''.join([random.choice(ls) for x in range(12)])
+
+    screen1.pass_str.set(password)
+
+        
 
 def login():
     global screen2
@@ -155,7 +153,7 @@ def login():
     username_entry1.pack()
     Label(screen2,text="").pack()
     Label(screen2, text= "Пароль *").pack()
-    password_entry1=Entry(screen2, textvariable=password_verify)
+    password_entry1=Entry(screen2, show="*", textvariable=password_verify)
     password_entry1.pack()
     Label(screen2,text="").pack()
     Button(screen2, text="Авторизация", width=10,height=1, command=login_verify).pack()
