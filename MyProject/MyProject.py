@@ -1,13 +1,12 @@
 from tkinter import *
-from tkinter import messagebox
 import os
 import random, string
-
+import smtplib
 
 
     
 
-def delete2():
+def logout():
     screen.destroy()
 
 def delete3():
@@ -16,6 +15,100 @@ def delete3():
 def delete4():
     screen5.destroy()
 
+def send():
+    try:
+        username=temp_username.get()
+        password=temp_password.get()
+        to=temp_receiver.get()
+        subject=temp_subject.get()
+        body=temp_body.get()
+        if username=="" or password=="" or to=="" or subject=="" or body=="":
+            Label(screen6, bg="light blue", text="All fields required!", fg="red", font=("Calibri", 11)).pack()
+            return
+        else:
+            finalMessage="Subject: {}\n\n{}".format(subject, body)
+            server=smtplib.SMTP("smtp.gmail.com", 587)
+            server.starttls()
+            server.login(username,password)
+            server.sendmail(username,to,finalMessage)
+            usernameEntry.delete(0,END)
+            passwordEntry.delete(0, END)
+            receiverEntry.delete(0,END)
+            subjectEntry.delete(0,END)
+            bodyEntry.delete(0,END)
+            Label(screen6, text="E-mail has been sent!", fg="green", font=("Calibri", 11)).pack()
+    except:
+        Label(screen6, text="Error sending email!", fg="red", font=("Calibri", 11)).pack()
+
+def reset():
+    usernameEntry.delete(0,END)
+    passwordEntry.delete(0,END)
+    receiverEntry.delete(0,END)
+    subjectEntry.delete(0,END)
+    bodyEntry.delete(0,END)
+
+def email():
+    global screen6
+    global temp_username
+    global temp_password
+    global temp_receiver
+    global temp_subject
+    global temp_body
+
+    screen6=Toplevel(screen, bg="pink")
+    screen6.title("Электронная почта")
+    screen6.geometry("500x500")
+    
+   
+    temp_username = StringVar()
+    temp_password = StringVar()
+    temp_receiver = StringVar()
+    temp_subject = StringVar()
+    temp_body = StringVar()
+
+    global usernameEntry
+    global passwordEntry
+    global receiverEntry
+    global subjectEntry
+    global bodyEntry
+
+ 
+    Label(screen6, bg="light blue", text="Заполните форму ниже для отправки письма: ", font=("Calibri", 15)).pack()
+    Label(screen6, bg="pink", text= "").pack()
+    Label(screen6, bg="light blue", text="Email", font=("Calibri", 11)).pack()
+  
+    usernameEntry=Entry(screen6, textvariable=temp_username)
+    usernameEntry.pack()
+    Label(screen6, bg="pink", text= "").pack()
+    Label(screen6, bg="light blue", text="Password", font=("Calibri", 11)).pack()
+    
+    passwordEntry=Entry(screen6, show="*", textvariable=temp_password)
+    passwordEntry.pack()
+    Label(screen6, bg="pink", text= "").pack()
+    Label(screen6, bg="light blue", text="To", font=("Calibri", 11)).pack()
+    
+    receiverEntry=Entry(screen6, textvariable=temp_receiver)
+    receiverEntry.pack()
+    Label(screen6, bg="pink", text= "").pack()
+    Label(screen6, bg="light blue", text="Subject", font=("Calibri", 11)).pack()
+   
+    subjectEntry=Entry(screen6, textvariable=temp_subject)
+    subjectEntry.pack()
+    Label(screen6, bg="pink", text= "").pack()
+    Label(screen6, bg="light blue", text="Body", font=("Calibri", 11)).pack()
+   
+    bodyEntry=Entry(screen6, textvariable=temp_body)
+    
+    bodyEntry.pack()
+
+    Label(screen6, bg="pink", text=" ", font=("Calibri", 11)).pack()
+
+    Button(screen6, bg="light blue", text="Send", command=send).pack()
+    Button(screen6, bg="light blue", text="Reset", command=reset).pack()
+    Button(screen6, bg="light blue", text="Log out", command=logout).pack()
+
+  
+
 def login_sucess():
     global screen3
     screen3=Toplevel(screen, bg="pink")
@@ -23,7 +116,7 @@ def login_sucess():
     screen3.geometry("350x100")
     Label(screen3, bg="pink", fg="red", text="Авторизация удалась!").pack()
     Label(screen3, bg="pink", text= "").pack()
-    Button(screen3, fg="purple", bg="light blue", text="OK", command=delete2).pack()
+    Button(screen3, fg="purple", bg="light blue", text="OK", command=email).pack()
 
 def password_not_recognized():
     global screen4
