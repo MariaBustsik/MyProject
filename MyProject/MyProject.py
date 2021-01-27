@@ -59,7 +59,7 @@ def email():
     screen6.title("Электронная почта")
     screen6.geometry("400x700")
     Label(screen6, text="Система отправки писем", bg="light blue", fg="purple", width="300", height="2", font=("Impact", 15, "bold")).pack()
-    Label(screen6, bg="light pink", text= "").pack()
+    Label(screen6, bg="pink", text= "").pack()
     
     temp_username = StringVar()
     temp_password = StringVar()
