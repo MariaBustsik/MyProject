@@ -2,7 +2,7 @@ from tkinter import *
 import os
 import random, string
 import smtplib
-from tkinter import scrolledtext 
+
 
     
 
@@ -264,7 +264,7 @@ def main_screen():
     img=PhotoImage(file="Spongebob.png").subsample(5)
     my_label=Label(screen, bg="light pink", image=img)
     my_label.place(relwidth=1,relheight=1)
-    screen.title("Система отправки писем")
+    screen.title("Приложение")
     Label(text="Система авторизации и регистрации", bg="light blue", fg="purple", width="300", height="2", font=("Impact", 15, "bold")).pack()
     Label(bg="light pink", text= "").pack()
     Button (text="Авторизация", height="2", width="30", font=("Helvetica"), fg="black", bg="light blue", command=login).pack()
