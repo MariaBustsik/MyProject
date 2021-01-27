@@ -23,7 +23,7 @@ def send():
         subject=temp_subject.get()
         body=temp_body.get()
         if username=="" or password=="" or to=="" or subject=="" or body=="":
-            Label(screen6, bg="light blue", text="All fields required!", fg="red", font=("Calibri", 11)).pack()
+            Label(screen6, bg="light blue", text="Заполните все поля!", fg="red", font=("Calibri", 11)).pack()
             return
         else:
             finalMessage="Subject: {}\n\n{}".format(subject, body)
@@ -36,9 +36,9 @@ def send():
             receiverEntry.delete(0,END)
             subjectEntry.delete(0,END)
             bodyEntry.delete(0,END)
-            Label(screen6, text="E-mail has been sent!", fg="green", font=("Calibri", 11)).pack()
+            Label(screen6, text="Письмо отправлено!", fg="green", font=("Calibri", 11)).pack()
     except:
-        Label(screen6, text="Error sending email!", fg="red", font=("Calibri", 11)).pack()
+        Label(screen6, text="Error при отправлении письма!", fg="red", font=("Calibri", 11)).pack()
 
 def reset():
     usernameEntry.delete(0,END)
@@ -57,8 +57,9 @@ def email():
 
     screen6=Toplevel(screen, bg="pink")
     screen6.title("Электронная почта")
-    screen6.geometry("400x600")
-  
+    screen6.geometry("400x700")
+    Label(screen6, text="Система отправки писем", bg="light blue", fg="purple", width="300", height="2", font=("Impact", 15, "bold")).pack()
+    Label(screen6, bg="light pink", text= "").pack()
     
     temp_username = StringVar()
     temp_password = StringVar()
@@ -73,29 +74,29 @@ def email():
     global bodyEntry
 
  
-    Label(screen6, bg="light blue", text="Заполните форму ниже для отправки письма: ", font=("Calibri", 15)).pack()
+    Label(screen6, bg="pink", text="Заполните форму ниже для отправки письма: ", font=("Calibri", 12)).pack()
     Label(screen6, bg="pink", text= "").pack()
-    Label(screen6, bg="light blue", text="Email", font=("Calibri", 11)).pack()
+    Label(screen6, bg="light blue", text="Адрес электронной почты", font=("Calibri", 11)).pack()
   
     usernameEntry=Entry(screen6, textvariable=temp_username)
     usernameEntry.pack()
     Label(screen6, bg="pink", text= "").pack()
-    Label(screen6, bg="light blue", text="Password", font=("Calibri", 11)).pack()
+    Label(screen6, bg="light blue", text="Пароль", font=("Calibri", 11)).pack()
     
     passwordEntry=Entry(screen6, show="*", textvariable=temp_password)
     passwordEntry.pack()
     Label(screen6, bg="pink", text= "").pack()
-    Label(screen6, bg="light blue", text="To", font=("Calibri", 11)).pack()
+    Label(screen6, bg="light blue", text="Получатель", font=("Calibri", 11)).pack()
     
     receiverEntry=Entry(screen6, textvariable=temp_receiver)
     receiverEntry.pack()
     Label(screen6, bg="pink", text= "").pack()
-    Label(screen6, bg="light blue", text="Subject", font=("Calibri", 11)).pack()
+    Label(screen6, bg="light blue", text="Тема сообщения", font=("Calibri", 11)).pack()
    
     subjectEntry=Entry(screen6, textvariable=temp_subject)
     subjectEntry.pack()
     Label(screen6, bg="pink", text= "").pack()
-    Label(screen6, bg="light blue", text="Body", font=("Calibri", 11)).pack()
+    Label(screen6, bg="light blue", text="Текст сообщения", font=("Calibri", 11)).pack()
     
     bodyEntry=Entry(screen6, textvariable=temp_body)
    
@@ -103,11 +104,11 @@ def email():
 
     Label(screen6, bg="pink", text=" ", font=("Calibri", 11)).pack()
 
-    Button(screen6, bg="light blue", text="Send", height = 2, width = 15, command=send).pack()
+    Button(screen6, bg="light blue", text="Отправить", height = 2, width = 15, command=send).pack()
     Label(screen6, bg="pink", text= "").pack()
-    Button(screen6, bg="light blue", text="Reset", height = 2, width = 15, command=reset).pack()
+    Button(screen6, bg="light blue", text="Очистить поля", height = 2, width = 15, command=reset).pack()
     Label(screen6, bg="pink", text= "").pack()
-    Button(screen6, bg="light blue", text="Log out", height = 2, width = 15, command=logout).pack()
+    Button(screen6, bg="light blue", text="Выход", height = 2, width = 15, command=logout).pack()
     Label(screen6, bg="pink", text= "").pack()
 
   
@@ -263,8 +264,8 @@ def main_screen():
     img=PhotoImage(file="Spongebob.png").subsample(5)
     my_label=Label(screen, bg="light pink", image=img)
     my_label.place(relwidth=1,relheight=1)
-    screen.title("Зачётное задание")
-    Label(text="Система авторизации и регистрации 2.0", bg="light blue", fg="purple", width="300", height="2", font=("Impact", 15, "bold")).pack()
+    screen.title("Система отправки писем")
+    Label(text="Система авторизации и регистрации", bg="light blue", fg="purple", width="300", height="2", font=("Impact", 15, "bold")).pack()
     Label(bg="light pink", text= "").pack()
     Button (text="Авторизация", height="2", width="30", font=("Helvetica"), fg="black", bg="light blue", command=login).pack()
     Label(bg="light pink", text="").pack()
