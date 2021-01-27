@@ -2,7 +2,7 @@ from tkinter import *
 import os
 import random, string
 import smtplib
-
+from tkinter import scrolledtext 
 
     
 
@@ -57,9 +57,9 @@ def email():
 
     screen6=Toplevel(screen, bg="pink")
     screen6.title("Электронная почта")
-    screen6.geometry("500x500")
+    screen6.geometry("400x600")
+  
     
-   
     temp_username = StringVar()
     temp_password = StringVar()
     temp_receiver = StringVar()
@@ -96,18 +96,23 @@ def email():
     subjectEntry.pack()
     Label(screen6, bg="pink", text= "").pack()
     Label(screen6, bg="light blue", text="Body", font=("Calibri", 11)).pack()
-   
-    bodyEntry=Entry(screen6, textvariable=temp_body)
     
+    bodyEntry=Entry(screen6, textvariable=temp_body)
+   
     bodyEntry.pack()
 
     Label(screen6, bg="pink", text=" ", font=("Calibri", 11)).pack()
 
-    Button(screen6, bg="light blue", text="Send", command=send).pack()
-    Button(screen6, bg="light blue", text="Reset", command=reset).pack()
-    Button(screen6, bg="light blue", text="Log out", command=logout).pack()
+    Button(screen6, bg="light blue", text="Send", height = 2, width = 15, command=send).pack()
+    Label(screen6, bg="pink", text= "").pack()
+    Button(screen6, bg="light blue", text="Reset", height = 2, width = 15, command=reset).pack()
+    Label(screen6, bg="pink", text= "").pack()
+    Button(screen6, bg="light blue", text="Log out", height = 2, width = 15, command=logout).pack()
+    Label(screen6, bg="pink", text= "").pack()
 
   
+
+ 
 
 def login_sucess():
     global screen3
